@@ -48,21 +48,34 @@ Requirements
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Ссылка на git-репозиторий Lighthouse с исходным кодом:
+lighthouse_code_src: "https://github.com/VKCOM/lighthouse.git"
+
+Список пакетов, обязательных для работы роли:
+lighthouse_packages:
+  - git
+  - nginx
+  
+Параметры, определяющие каталог для установки Lighthouse, порт веб-сервера и имя конфигурационного файла nginx:
+lighthouse_data_dir: "/lighthouse/"
+lighthouse_nginx_port: 8888
+lighthouse_nginx_conf: "lighthouse.conf"
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Для установки Clickhouse требуется роль ansible-clickhouse: https://github.com/AlexeySetevoi/ansible-clickhouse
 
 Example Playbook
 ----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- name: Install Lighthouse
+  hosts: lighthouse
+  gather_facts: false
+  roles:
+    - role: lighthouse-role
+      tags: lighthouse
+```
 
 License
 -------
